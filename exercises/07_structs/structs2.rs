@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Order {
     name: String,
     year: u32,
@@ -34,7 +34,9 @@ mod tests {
         let order_template = create_order_template();
 
         // TODO: Create your own order using the update syntax and template above!
-        // let your_order =
+        let mut your_order = order_template.clone();
+        your_order.name = String::from("Hacker in Rust");
+        your_order.count = 1;
 
         assert_eq!(your_order.name, "Hacker in Rust");
         assert_eq!(your_order.year, order_template.year);
