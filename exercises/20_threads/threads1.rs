@@ -4,7 +4,7 @@
 // return values into a vector.
 
 use std::{
-    os::windows::io::{AsHandle, IntoRawHandle}, thread::{self, JoinHandle}, time::{Duration, Instant}
+    thread::{self}, time::{Duration, Instant}
 };
 
 fn main() {
