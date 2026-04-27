@@ -4,7 +4,6 @@
 // method on strings to generate an object of the implementor type. You can read
 // more about it in the documentation:
 // https://doc.rust-lang.org/std/str/trait.FromStr.html
-
 use std::num::ParseIntError;
 use std::str::FromStr;
 
@@ -41,7 +40,23 @@ enum ParsePersonError {
 impl FromStr for Person {
     type Err = ParsePersonError;
 
-    fn from_str(s: &str) -> Result<Self, Self::Err> {}
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts: Vec<&str> = s.split(',').collect();
+
+        if parts.len() < 2 || parts.len() > 2 {
+            return Err(ParsePersonError::BadLen);
+        }
+
+        if parts[0].is_empty() {
+            return Err(ParsePersonError::NoName);
+        }
+
+        let age_str = parts[1];
+        match age_str.parse::<u8>() {
+            Ok(a) => Ok(Person { name: parts[0].to_string(), age: a }),
+            Err(a) => Err(ParsePersonError::ParseInt(a))
+        }
+    }
 }
 
 fn main() {
